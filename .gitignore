@@ -1,0 +1,7 @@
+requests/*
+results/*
+work/
+!requests/.gitkeep
+!results/.gitkeep
+.watch.lock/
+.DS_Store
