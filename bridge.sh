@@ -1,5 +1,5 @@
 #!/bin/zsh
-# claude-artifact-bridge 1.0.0 - bridge.sh
+# claude-artifact-bridge 1.0.1 - bridge.sh
 #
 # What it's for: lets a Claude chat that is NOT allowed to change an existing claude.ai artifact (for example a cloud
 # Cowork / project chat that gets "network_off: ... this session did not make this artifact") get that change made
@@ -23,7 +23,9 @@
 #     or changing who they're shared with.
 #
 # Settings (environment variables, all optional):
-#   BRIDGE_MODEL  model to use (default: sonnet)
+#   BRIDGE_MODEL  model to use (default: opus)
+#   BRIDGE_EFFORT effort level: low, medium, high, xhigh, max (default: low; in our testing Opus at low effort did
+#                 better and used less of the plan limit than Sonnet at medium)
 #   BRIDGE_TURNS  most tool turns per request (default: 60)
 #   CLAUDE_BIN    path to the claude command (default: found on PATH, or ~/.local/bin/claude)
 set -u
@@ -45,7 +47,7 @@ RULES="You are an artifact bridge running on the owner's own computer. A Claude 
 REQUEST:
 "
 CLAUDE_CODE_ARTIFACT=1 "$CLAUDE" -p "$RULES$(cat "$REQ")" \
-  --model "${BRIDGE_MODEL:-sonnet}" --max-turns "${BRIDGE_TURNS:-60}" --output-format json \
+  --model "${BRIDGE_MODEL:-opus}" --effort "${BRIDGE_EFFORT:-low}" --max-turns "${BRIDGE_TURNS:-60}" --output-format json \
   --permission-mode bypassPermissions \
   --allowedTools "Read" "Write" "Edit" "Glob" "Grep" "Artifact" "ArtifactData" "ArtifactComments" "ArtifactCheck" "mcp__claude-artifacts" \
   --disallowedTools "Bash" "NotebookEdit" "WebFetch" "WebSearch" \

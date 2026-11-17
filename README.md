@@ -1,6 +1,6 @@
 # claude-artifact-bridge
 
-**Version 1.0.0** · Let a Claude chat update claude.ai artifacts it isn't allowed to change, by passing the change to Claude Code on your own computer.
+**Version 1.0.1** · Let a Claude chat update claude.ai artifacts it isn't allowed to change, by passing the change to Claude Code on your own computer.
 
 ## The problem
 In some Claude chats (for example cloud Cowork chats or project chats in an organization with network egress turned off), the artifact tools refuse to change an artifact that the chat didn't create itself:
@@ -54,7 +54,7 @@ The result lands in `results/<name>.txt`. Its last line is `BRIDGE_RESULT: OK (.
 - Requests can contain whatever the chat writes into them. Don't run requests from people you don't trust.
 
 ## Cost and limits
-- Each request is a normal Claude Code run on your plan, so a small database change costs about as much as a short chat. Page edits on big pages cost more. Set `BRIDGE_MODEL` / `BRIDGE_TURNS` to tune it.
+- Each request is a normal Claude Code run on your plan, so a small database change costs about as much as a short chat. Page edits on big pages cost more. It runs Opus at low effort by default, which in our testing did better and used less of the plan limit than Sonnet at medium. Set `BRIDGE_MODEL` / `BRIDGE_EFFORT` / `BRIDGE_TURNS` to change it.
 - Your computer must be on, with the watcher (or your job runner) running.
 - Needs Claude Code 2.1.322 or later: `CLAUDE_CODE_ARTIFACT=1` turns the artifact tools on in `claude -p` runs.
 

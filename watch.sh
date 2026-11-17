@@ -1,5 +1,5 @@
 #!/bin/zsh
-# claude-artifact-bridge 1.0.0 - watch.sh
+# claude-artifact-bridge 1.0.1 - watch.sh
 #
 # What it's for: if you don't already have a job runner, leave this running in a Terminal window. Every few seconds it
 # looks in requests/ for a request that has no result yet and runs it through bridge.sh, one at a time (oldest first).
